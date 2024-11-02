@@ -2,4 +2,4 @@
 Arxiv
 Habanero
 Requests
-gunicorn==19.7.1
+gunicorn
