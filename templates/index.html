@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper Finder</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="light-mode">
+    <div class="container text-center">
+        <h1 class="my-4">Research Paper Finder</h1>
+        
+        <!-- Dark Mode Toggle Switch -->
+        <label class="switch">
+            <input type="checkbox" id="toggle">
+            <span class="slider"></span>
+        </label>
+        
+        <!-- Search Form -->
+        <form method="post" class="mb-4">
+            <div class="form-group">
+                <label for="topic">Enter the topic name:</label>
+                <input type="text" name="topic" id="topic" class="form-control" placeholder="e.g., Machine Learning" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </form>
+
+        {% if papers %}
+            <h2 class="mt-5">Top Papers for Topic: {{ topic }}</h2>
+            <ul class="list-group">
+                {% for paper in papers %}
+                    <li class="list-group-item my-3">
+                        <h3 class="text-primary">{{ paper.title }}</h3>
+                        <p><strong>Authors:</strong> {{ paper.authors }}</p>
+                        <p><strong>Published:</strong> {{ paper.published }}</p>
+                        <p><strong>Abstract:</strong> {{ paper.abstract }}</p>
+                        <p><a href="{{ paper.pdf_url }}" class="btn btn-outline-info" target="_blank">Download PDF</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript for dark mode toggle -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
